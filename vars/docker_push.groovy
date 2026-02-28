@@ -1,6 +1,4 @@
-def call(String imageName, String imageTag = 'latest', String credentialsId = 'dockerHub-jenkinidpass') {
-    echo "Pushing Docker image: ${imageName}:${imageTag}"
-
+def call(String projectName, String imageTag = "latest", String credentialsId = "dockerHub-jenkinidpass") {
     withCredentials([usernamePassword(
         credentialsId: credentialsId,
         usernameVariable: 'DOCKER_USERNAME',
@@ -8,8 +6,8 @@ def call(String imageName, String imageTag = 'latest', String credentialsId = 'd
     )]) {
         sh """
             echo "\$DOCKER_PASSWORD" | docker login -u "\$DOCKER_USERNAME" --password-stdin
-            docker push ${imageName}:${imageTag}
-            docker push ${imageName}:latest
+            docker push ${DOCKER_USERNAME}/${projectName}:${imageTag}
+            docker push ${DOCKER_USERNAME}/${projectName}:latest
         """
     }
 }
