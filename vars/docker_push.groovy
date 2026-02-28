@@ -1,12 +1,8 @@
-def call(Map config = [:]) {
-    def imageName = config.imageName ?: error("Image name is required")
-    def imageTag = config.imageTag ?: 'latest'
-    def credentials = config.credentials ?: 'docker-hub-credentials'
-    
+def call(String imageName, String imageTag = 'latest', String credentialsId = 'dockerHub-jenkinidpass') {
     echo "Pushing Docker image: ${imageName}:${imageTag}"
-    
+
     withCredentials([usernamePassword(
-        credentialsId: credentials,
+        credentialsId: credentialsId,
         usernameVariable: 'DOCKER_USERNAME',
         passwordVariable: 'DOCKER_PASSWORD'
     )]) {
