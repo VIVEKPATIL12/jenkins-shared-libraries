@@ -1,4 +1,3 @@
-package com.vivek.cicd   // adjust your package path if needed
 
 class DeployProduction implements Serializable {
 
